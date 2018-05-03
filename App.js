@@ -113,18 +113,6 @@ export default class App extends Component<Props> {
     })
   }
 
-  renderFeed() {
-    let feeds = this.state.feeds;
-    // console.log(feeds[0]);
-    // feeds.map(item => {
-    //   console.log(item);
-    //   console.log(item.name);
-    // } );
-    return feeds.map((item) => {
-      <Text>{item.name}</Text>
-    });
-  }
-
   /*
   * Parse the URL depending on if it's internal or external
   */
@@ -152,9 +140,7 @@ export default class App extends Component<Props> {
   }
 
   render() {
-    console.log("test");
-    // console.log(this.renderFeed());
-    if (this.state.isLoading) {
+    if (this.state.isLoading) { // if we're still downloading the JSON
       return (
         <View style={{flex: 1, paddingTop: 20}}>
           <ActivityIndicator />
@@ -181,13 +167,12 @@ export default class App extends Component<Props> {
              />
            </View>
 
-           {/* <TouchableOpacity onPress={this.GetItem.bind(this, rowData.name)} > */}
            <Text style={styles.textViewContainer} >{'Name: ' + rowData.name}</Text>
            <Text style={styles.textViewContainer} >{'URL: ' + this.parseURL(rowData.url)}</Text>
            <Text style={styles.textViewContainer} >{'Message: ' + rowData.message}</Text>
            <Text style={styles.textViewContainer} >{'Projects: ' + this.parseArray(rowData.project)}</Text>
            <Text style={{paddingLeft: 20, paddingBottom: 10}} >{'Terms on: ' + this.parseArray(rowData.terms_on)}</Text>
-           {/* </TouchableOpacity> */}
+           
          </View>
           }
         />
