@@ -173,6 +173,7 @@ export default class App extends Component<Props> {
            <View style={{
                  justifyContent: 'center',
                  alignItems: 'center',
+                 paddingTop: 10
                }}>
              <Image
                style={{width: 150, height: 150}}
@@ -185,7 +186,7 @@ export default class App extends Component<Props> {
            <Text style={styles.textViewContainer} >{'URL: ' + this.parseURL(rowData.url)}</Text>
            <Text style={styles.textViewContainer} >{'Message: ' + rowData.message}</Text>
            <Text style={styles.textViewContainer} >{'Projects: ' + this.parseArray(rowData.project)}</Text>
-           <Text style={styles.textViewContainer} >{'Terms on: ' + this.parseArray(rowData.terms_on)}</Text>
+           <Text style={{paddingLeft: 20, paddingBottom: 10}} >{'Terms on: ' + this.parseArray(rowData.terms_on)}</Text>
            {/* </TouchableOpacity> */}
          </View>
           }
@@ -216,5 +217,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  textViewContainer: {
+    paddingLeft: 20,
   },
 });
