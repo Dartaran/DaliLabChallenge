@@ -13,7 +13,8 @@ import {
   ScrollView,
   ListView,
   TouchableOpacity,
-  ActivityIndicator
+  ActivityIndicator,
+  Image
 } from 'react-native';
 
 import { List, ListItem } from 'react-native-elements';
@@ -124,6 +125,9 @@ export default class App extends Component<Props> {
     });
   }
 
+  /*
+  * Parse the URL depending on if it's internal or external
+  */
   parseURL(url) {
     finalUrl = "";
     if (url.startsWith("//")) { // outside URL, prepend http:
@@ -133,6 +137,18 @@ export default class App extends Component<Props> {
       finalUrl = "http://mappy.dali.dartmouth.edu/" + url;
     }
     return finalUrl;
+  }
+
+  /*
+  *  For either projects or terms on, return a comma-separated string
+  */
+  parseArray(array) {
+    finalString = ""; // return a comma-separated string from the array
+    if (array.length == 0) return "N/A";
+    for (var i = 0; i < array.length; i++) {
+        finalString += (i == 0 ? "" : ", ") + array[i];
+    }
+    return finalString;
   }
 
   render() {
@@ -149,23 +165,28 @@ export default class App extends Component<Props> {
       <View style={styles.container}>
         <Text style={styles.header}>DALI Members</Text>
         <ListView
-          dataSource = {this.state.feeds}
-          renderSeparator = {this.ListViewItemSeparator}
+          dataSource={this.state.feeds}
+          renderSeparator={this.ListViewItemSeparator}
           renderRow={(rowData) =>
          <View style={{flex:1, flexDirection: 'column'}} >
 
+           <View style={{
+                 justifyContent: 'center',
+                 alignItems: 'center',
+               }}>
+             <Image
+               style={{width: 150, height: 150}}
+               source={{uri: this.parseURL(rowData.iconUrl)}}
+             />
+           </View>
+
            {/* <TouchableOpacity onPress={this.GetItem.bind(this, rowData.name)} > */}
-
            <Text style={styles.textViewContainer} >{'Name: ' + rowData.name}</Text>
-
            <Text style={styles.textViewContainer} >{'URL: ' + this.parseURL(rowData.url)}</Text>
-
            <Text style={styles.textViewContainer} >{'Message: ' + rowData.message}</Text>
-
-           {/* <Text style={styles.textViewContainer} >{'Subject = ' + rowData.student_subject}</Text> */}
-
+           <Text style={styles.textViewContainer} >{'Projects: ' + this.parseArray(rowData.project)}</Text>
+           <Text style={styles.textViewContainer} >{'Terms on: ' + this.parseArray(rowData.terms_on)}</Text>
            {/* </TouchableOpacity> */}
-
          </View>
           }
         />
