@@ -124,6 +124,17 @@ export default class App extends Component<Props> {
     });
   }
 
+  parseURL(url) {
+    finalUrl = "";
+    if (url.startsWith("//")) { // outside URL, prepend http:
+       finalUrl = "http:" + url;
+    }
+    else { // internal URL, prepend the DALI URL
+      finalUrl = "http://mappy.dali.dartmouth.edu/" + url;
+    }
+    return finalUrl;
+  }
+
   render() {
     console.log("test");
     // console.log(this.renderFeed());
@@ -135,28 +146,29 @@ export default class App extends Component<Props> {
       );
     }
     return (
-      <View>
+      <View style={styles.container}>
+        <Text style={styles.header}>DALI Members</Text>
         <ListView
           dataSource = {this.state.feeds}
           renderSeparator = {this.ListViewItemSeparator}
           renderRow={(rowData) =>
-       <View style={{flex:1, flexDirection: 'column'}} >
+         <View style={{flex:1, flexDirection: 'column'}} >
 
-         {/* <TouchableOpacity onPress={this.GetItem.bind(this, rowData.name)} > */}
+           {/* <TouchableOpacity onPress={this.GetItem.bind(this, rowData.name)} > */}
 
-         <Text style={styles.textViewContainer} >{'Name = ' + rowData.name}</Text>
+           <Text style={styles.textViewContainer} >{'Name: ' + rowData.name}</Text>
 
-         <Text style={styles.textViewContainer} >{'Phone Number = ' + rowData.}</Text>
+           <Text style={styles.textViewContainer} >{'URL: ' + this.parseURL(rowData.url)}</Text>
 
-         <Text style={styles.textViewContainer} >{'Phone Number = ' + rowData.student_phone_number}</Text>
+           <Text style={styles.textViewContainer} >{'Message: ' + rowData.message}</Text>
 
-         <Text style={styles.textViewContainer} >{'Subject = ' + rowData.student_subject}</Text>
+           {/* <Text style={styles.textViewContainer} >{'Subject = ' + rowData.student_subject}</Text> */}
 
-         {/* </TouchableOpacity> */}
+           {/* </TouchableOpacity> */}
 
-       </View>
-        }
-      />
+         </View>
+          }
+        />
       </View>
     );
   }
@@ -168,6 +180,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+  },
+  header: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
   },
   welcome: {
     fontSize: 20,
