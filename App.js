@@ -102,44 +102,44 @@ export default class App extends Component<Props> {
   }
 
   render() {
-    if (this.state.isLoading) {
-      return (<View style={{
-          flex: 1,
-          paddingTop: 20
-        }}>
-        <ActivityIndicator/>
-      </View>);
+    if (this.state.isLoading) { // if we're still downloading the JSON
+      return (
+        <View style={{flex: 1, paddingTop: 20}}>
+          <ActivityIndicator />
+        </View>
+      );
     }
-    return (<View style={styles.container}>
-      <Text style={styles.header}>DALI Members</Text>
-      <ListView dataSource={this.state.feeds} renderSeparator={this.ListViewItemSeparator} renderRow={(rowData) => <View style={{
-            flex: 1,
-            flexDirection: 'column'
-          }}>
+    return (
+      <View style={styles.container}>
+        <Text style={styles.header}>DALI Members</Text>
+        <ListView
+          dataSource={this.state.feeds}
+          renderSeparator={this.ListViewItemSeparator}
+          renderRow={(rowData) =>
+         <View style={{flex:1, flexDirection: 'column'}} >
 
-          <View style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              paddingTop: 10
-            }}>
-            <Image style={{
-                width: 150,
-                height: 150
-              }} source={{
-                uri: this.parseURL(rowData.iconUrl)
-              }}/>
-          </View>
+           <View style={{
+                 justifyContent: 'center',
+                 alignItems: 'center',
+                 paddingTop: 10
+               }}>
+             <Image
+               style={{width: 150, height: 150}}
+               source={{uri: this.parseURL(rowData.iconUrl)}}
+             />
+           </View>
 
-          <Text style={styles.textViewContainer}>{'Name: ' + rowData.name}</Text>
-          <Text style={styles.textViewContainer}>{'URL: ' + this.parseURL(rowData.url)}</Text>
-          <Text style={styles.textViewContainer}>{'Message: ' + rowData.message}</Text>
-          <Text style={styles.textViewContainer}>{'Projects: ' + this.parseArray(rowData.project)}</Text>
-          <Text style={{
-              paddingLeft: 20,
-              paddingBottom: 10
-            }}>{'Terms on: ' + this.parseArray(rowData.terms_on)}</Text>
-        </View>}/>
-    </View>);
+           <Text style={styles.textViewContainer} >{'Name: ' + rowData.name}</Text>
+           <Text style={styles.textViewContainer} >{'URL: ' + this.parseURL(rowData.url)}</Text>
+           <Text style={styles.textViewContainer} >{'Message: ' + rowData.message}</Text>
+           <Text style={styles.textViewContainer} >{'Projects: ' + this.parseArray(rowData.project)}</Text>
+           <Text style={{paddingLeft: 20, paddingBottom: 10}} >{'Terms on: ' + this.parseArray(rowData.terms_on)}</Text>
+
+         </View>
+          }
+        />
+      </View>
+    );
   }
 }
 
