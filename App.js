@@ -104,7 +104,7 @@ export default class App extends Component<Props> {
   render() {
     if (this.state.isLoading) { // if we're still downloading the JSON
       return (
-        <View style={{flex: 1, paddingTop: 20}}>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <ActivityIndicator />
         </View>
       );
@@ -129,11 +129,13 @@ export default class App extends Component<Props> {
              />
            </View>
 
-           <Text style={styles.textViewContainer} >{'Name: ' + rowData.name}</Text>
-           <Text style={styles.textViewContainer} >{'URL: ' + this.parseURL(rowData.url)}</Text>
-           <Text style={styles.textViewContainer} >{'Message: ' + rowData.message}</Text>
-           <Text style={styles.textViewContainer} >{'Projects: ' + this.parseArray(rowData.project)}</Text>
-           <Text style={{paddingLeft: 20, paddingBottom: 10}} >{'Terms on: ' + this.parseArray(rowData.terms_on)}</Text>
+           <View style={{paddingTop: 10, paddingBottom: 10}} >
+             <Text style={styles.sectionTitle} >Name: <Text style={styles.textViewContainer}>{rowData.name}</Text></Text>
+             <Text style={styles.sectionTitle} >URL: <Text style={styles.textViewContainer}>{this.parseURL(rowData.url)}</Text></Text>
+             <Text style={styles.sectionTitle} >Message: <Text style={styles.textViewContainer}>{rowData.message}</Text></Text>
+             <Text style={styles.sectionTitle} >Projects: <Text style={styles.textViewContainer}>{this.parseArray(rowData.project)}</Text></Text>
+             <Text style={styles.sectionTitle} >Terms on: <Text style={styles.textViewContainer}>{this.parseArray(rowData.terms_on)}</Text></Text>
+           </View>
 
          </View>
           }
@@ -165,11 +167,12 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5
   },
-  section: {
-    paddingLeft: 20,
-    color: '#ffffff'
+  sectionTitle: {
+    paddingLeft: 10,
+    color: '#000000'
   },
   textViewContainer: {
-    paddingLeft: 20
+    fontWeight: 'normal',
+    color: '#56595b'
   }
 });
