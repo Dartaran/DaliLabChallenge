@@ -13,7 +13,8 @@ import {
   ListView,
   TouchableOpacity,
   ActivityIndicator,
-  Image
+  Image,
+  Linking
 } from 'react-native';
 
 import {List, ListItem} from 'react-native-elements';
@@ -131,7 +132,7 @@ export default class App extends Component<Props> {
 
            <View style={{paddingTop: 10, paddingBottom: 10}} >
              <Text style={styles.sectionTitle} >Name: <Text style={styles.textViewContainer}>{rowData.name}</Text></Text>
-             <Text style={styles.sectionTitle} >URL: <Text style={styles.textViewContainer}>{this.parseURL(rowData.url)}</Text></Text>
+             <Text style={styles.sectionTitle} >URL: <Text style={styles.link} onPress={() => {Linking.openURL(this.parseURL(rowData.url))}}>{this.parseURL(rowData.url)}</Text></Text>
              <Text style={styles.sectionTitle} >Message: <Text style={styles.textViewContainer}>{rowData.message}</Text></Text>
              <Text style={styles.sectionTitle} >Projects: <Text style={styles.textViewContainer}>{this.parseArray(rowData.project)}</Text></Text>
              <Text style={styles.sectionTitle} >Terms on: <Text style={styles.textViewContainer}>{this.parseArray(rowData.terms_on)}</Text></Text>
@@ -155,7 +156,8 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10
+    margin: 10,
+    color: '#000000'
   },
   welcome: {
     fontSize: 20,
@@ -174,5 +176,9 @@ const styles = StyleSheet.create({
   textViewContainer: {
     fontWeight: 'normal',
     color: '#56595b'
+  },
+  link: {
+    color: '#E91E63',
+    textDecorationLine: 'underline'
   }
 });
